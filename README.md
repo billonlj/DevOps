@@ -109,6 +109,12 @@ docker push billonlj/http_serv:1.0
 **Why do we put our images into an online repository ?**  
 Cela nous permet de sauvegarder nos images, ainsi que de les partager. Cela nous permet aussi d'y avoir accès depuis n'importe ou.
 
+## Compte rendue TP2
+### Setup Github Actions
+**2-1 What are testcontainers?**
+il s'agit d'une bibliothèque java permettant d'exécuter nos tests à l'intérieur d'un conteneur.
+**2-2 Document your Github Actions configurations**
+
 ## Commande
 build une image depuis un Dockerfile : 
 ```Docker
