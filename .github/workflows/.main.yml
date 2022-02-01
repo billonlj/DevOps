@@ -47,7 +47,7 @@ jobs:
           context: "./Backend API/simple-api/"
           # Note: tags has to be all lower-case
           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:simple-api
-          push: ${{ github.ref == 'refs/heads/main }}
+          push: ${{ github.ref == 'refs/heads/main' }}
       - name: Build image and push database
         uses: docker/build-push-action@v2
         with:
@@ -55,7 +55,7 @@ jobs:
           context: "./Database/"
           # Note: tags has to be all lower-case
           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:simple-api
-          push: ${{ github.ref == 'refs/heads/main }}
+          push: ${{ github.ref == 'refs/heads/main' }}
       - name: Build image and push httpd
         uses: docker/build-push-action@v2
         with:
@@ -63,4 +63,4 @@ jobs:
           context: "./HTTP Serveur/"
           # Note: tags has to be all lower-case
           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:simple-api
-          push: ${{ github.ref == 'refs/heads/main }}
+          push: ${{ github.ref == 'refs/heads/main' }}
