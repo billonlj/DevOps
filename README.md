@@ -112,9 +112,80 @@ Cela nous permet de sauvegarder nos images, ainsi que de les partager. Cela nous
 ## Compte rendue TP2
 ### Setup Github Actions
 **2-1 What are testcontainers?**
-il s'agit d'une bibliothèque java permettant d'exécuter nos tests à l'intérieur d'un conteneur.
-**2-2 Document your Github Actions configurations**
+il s'agit d'une bibliothèque java permettant d'exécuter nos tests à l'intérieur d'un conteneur.  
 
+**.main.yml file :**
+```Yaml
+name: CI devops 2022 CPE
+on:
+  #to begin you want to launch this job in main and develop
+  push:
+    branches: 
+      - main
+      - develop
+
+  pull_request:
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-18.04
+    steps:
+      #checkout your github code using actions/checkout@v2.3.3
+      - uses: actions/checkout@v2.3.3
+
+      #do the same with another action (actions/setup-java@v2) that enable to setup jdk 11
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+          cache: 'maven'
+
+      #finally build your app with the latest command
+      - name: Build and test with Maven
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=billonlj_DevOps -Dsonar.organization=billonlj -Dsonar.host.url=https://sonarcloud.io --file "./Backend API/simple-api/pom.xml"
+
+  # define job to build and publish docker image
+  build-and-push-docker-image:
+    needs: test-backend
+    # run only when code is compiling and tests are passing
+    runs-on: ubuntu-latest
+    # steps to perform in job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image and push backend
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: "./Backend API/simple-api/"
+          # Note: tags has to be all lower-case
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:simple-api
+          push: ${{ github.ref == 'refs/heads/main' }}
+      - name: Build image and push database
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: "./Database/"
+          # Note: tags has to be all lower-case
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:database
+          push: ${{ github.ref == 'refs/heads/main' }}
+      - name: Build image and push httpd
+        uses: docker/build-push-action@v2
+        with:
+          # relative path to the place where source code with Dockerfile is located
+          context: "./HTTP Serveur/"
+          # Note: tags has to be all lower-case
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:http-serv
+          push: ${{ github.ref == 'refs/heads/main' }}
+```
 ## Commande
 build une image depuis un Dockerfile : 
 ```Docker
