@@ -186,6 +186,21 @@ jobs:
           tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe:http-serv
           push: ${{ github.ref == 'refs/heads/main' }}
 ```
+## Compte rendue TP3
+### Intro
+**3-1 Document your inventory and base commands**
+```Yaml
+all:
+  vars:
+    ansible_user: centos
+    ansible_ssh_private_key_file: ~/.ssh/id_rsa_takima
+  children:
+    prod:
+      hosts: jeremi.billon-lanfrey.takima.cloud
+```
+Tester l'inventorie 
+``````
+
 ## Commande
 build une image depuis un Dockerfile : 
 ```Docker
@@ -216,3 +231,13 @@ Voir les conteneurs qui ont été exécuter sur la machine
 ```Docker
 docker ps -a
 ```
+Tester la configuration ansible
+```
+  ansible all -m ping --private-key=<path_to_your_ssh_key> -u centos
+```
+Installer Apache sur un serveur
+```
+ansible all -m yum -a "name=httpd state=present"
+--private-key=<path_to_your_ssh_key> -u centos --become
+```
+**--become** flag tells Ansible to perform the command as a super user
