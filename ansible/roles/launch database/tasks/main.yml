@@ -1,7 +1,7 @@
 - name: Create database container
   docker_container:
     name: postgres_db
-    image: billonlj/tp-devops-cpe:database
+    image: billonlj/tp-devops-cpe/database
     volumes:
       - /home/billonlj/CPE-Lyon/DevOps/Database/db-data
     networks:
