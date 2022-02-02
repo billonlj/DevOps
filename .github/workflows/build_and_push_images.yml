@@ -25,7 +25,7 @@ jobs:
           # relative path to the place where source code with Dockerfile is located
           context: "./Backend API/simple-api/"
           # Note: tags has to be all lower-case
-          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/simple-api:latest
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/simple-api:1.0
           push: ${{ github.ref == 'refs/heads/main' }}
 
   build-and-push-database:
@@ -45,7 +45,7 @@ jobs:
           # relative path to the place where source code with Dockerfile is located
           context: "./Database/"
           # Note: tags has to be all lower-case
-          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/database:latest
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/database:1.0
           push: ${{ github.ref == 'refs/heads/main' }}
 
   build-and-push-http:
@@ -65,7 +65,7 @@ jobs:
           # relative path to the place where source code with Dockerfile is located
           context: "./HTTP Serveur/"
           # Note: tags has to be all lower-case
-          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/http-serv:latest
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/http-serv:1.0
           push: ${{ github.ref == 'refs/heads/main' }}
 
   build-and-push-front:
@@ -85,5 +85,5 @@ jobs:
           # relative path to the place where source code with Dockerfile is located
           context: "./front/"
           # Note: tags has to be all lower-case
-          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/front:latest
+          tags: ${{secrets.DOCKERHUB_USERNAME}}/tp-devops-cpe/front:1.0
           push: ${{ github.ref == 'refs/heads/main' }}
