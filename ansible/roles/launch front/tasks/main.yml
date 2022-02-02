@@ -1,0 +1,6 @@
+- name: Create front container
+  docker_container:
+    name: front
+    image: billonlj/tp-devops-cpe:front
+    networks:
+      - name: "my-network"

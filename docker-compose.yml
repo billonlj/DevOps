@@ -24,5 +24,11 @@ services:
       - "my-network"
     depends_on:
       - "backend"
+      - "front"
+  front:
+    container_name: front 
+    build: "./front/"
+    networks:
+      - "my-network"
 networks:
   my-network:
