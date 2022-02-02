@@ -1,0 +1,6 @@
+- name: Create app container
+  docker_container:
+    name: java_main
+    image: billonlj/tp-devops-cpe:simple-api
+    networks:
+      - name: "my-network"

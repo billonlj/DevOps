@@ -199,7 +199,64 @@ all:
       hosts: jeremi.billon-lanfrey.takima.cloud
 ```
 Tester l'inventorie 
-``````
+```
+ansible all -i inventories/setup.yml -m ping
+```
+recuperer OS distribution 
+```
+ansible all -i inventories/setup.yml -m ping
+```
+Désinstaller apache
+```
+ ansible all -i inventories/setup.yml -m yum -a "name=httpd state=absent" --become
+```
+**3-2 Document your playbook**
+```Yaml
+- hosts: all
+  gather_facts: false
+  become: yes
+  roles:
+    - install docker
+```
+## Deploy your app
+**3-3 Document your docker_container tasks configuration**  
+Role create network: 
+```Yaml
+- name: Create a network
+  docker_network:
+    name: my-network
+```
+Role launch app: 
+```Yaml
+- name: Create app container
+  docker_container:
+    name: java_main
+    image: billonlj/tp-devops-cpe:simple-api
+    networks:
+      - name: "my-network"
+```
+Role launch database: 
+```Yaml
+- name: Create database container
+  docker_container:
+    name: postgres_db
+    image: billonlj/tp-devops-cpe:database
+    volumes:
+      - /home/billonlj/CPE-Lyon/DevOps/Database/db-data
+    networks:
+      - name: "my-network"
+```
+Role launch proxy: 
+```Yaml
+- name: Create proxy container
+  docker_container:
+    name: proxy
+    image: billonlj/tp-devops-cpe:http-serv
+    ports:
+     - "80:80"
+    networks:
+      - name: "my-network"
+```
 
 ## Commande
 build une image depuis un Dockerfile : 
