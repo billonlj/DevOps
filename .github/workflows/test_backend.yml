@@ -30,7 +30,7 @@ jobs:
         run: mvn -B verify sonar:sonar -Dsonar.projectKey=billonlj_DevOps -Dsonar.organization=billonlj -Dsonar.host.url=https://sonarcloud.io --file "./Backend API/simple-api/pom.xml"
   call-workflow:
       needs: test-backend
-      uses: adriengvd/s8_devops/.github/workflows/build_and_push_images.yml@main 
+      uses: billonlj/DevOps/.github/workflows/build_and_push_images.yml@main 
       secrets:
         DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
         DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
