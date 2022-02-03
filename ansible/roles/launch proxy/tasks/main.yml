@@ -1,7 +1,7 @@
 - name: Create proxy container
   docker_container:
     name: proxy
-    image: billonlj/tp-devops-cpe/http-serv
+    image: billonlj/tp-devops-cpe-http-serv
     ports:
      - "80:80"
     networks:
