@@ -298,3 +298,4 @@ ansible all -m yum -a "name=httpd state=present"
 --private-key=<path_to_your_ssh_key> -u centos --become
 ```
 **--become** flag tells Ansible to perform the command as a super user
+ 
