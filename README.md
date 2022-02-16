@@ -42,7 +42,7 @@ docker network create DevOps
 ```
 ### HTTP Reverse
 **Why do we need a reverse proxy ?**  
-Cela nous permet d'avoir un seul point d'entrer pour nos différents services, et exposée seulement ceux que l'on souhaite. Mais aussi d'avoir une application plus sécurisée due au fait qu'il n'y a qu'un seul point d'entrée a protégé
+Cela nous permet d'avoir un seul point d'entrer pour nos différents services, et exposée seulement ceux que l'on souhaite. Mais aussi d'avoir une application plus sécurisée due au fait qu'il n'y a qu'un seul point d'entrée a protégé  
 Build && run apache container  
 ```Docker
 docker build -t billonlj\http .
