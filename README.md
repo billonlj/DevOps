@@ -49,7 +49,7 @@ docker build -t billonlj\http .
 docker run -d -p 81:80 --name http_serv --net DevOps billonlj\http
 ```
 **Why is docker-compose so important ?**  
-Docker composé va nous permettre de gérer simplement plusieurs containers, plutôt que d’avoir une commande par container, on va pouvoir définir la configuration de nos différentes images dans un fichier puis toutes les lancé en 1 seule commande.   
+Docker compose va nous permettre de gérer simplement plusieurs containers, plutôt que d’avoir une commande par container, on va pouvoir définir la configuration de nos différentes images dans un fichier puis toutes les lancé en 1 seule commande.   
 **1-3 Document docker-compose most important commands**  
 Lancer un fichier docker compose
 ```Docker
@@ -204,7 +204,7 @@ ansible all -i inventories/setup.yml -m ping
 ```
 recuperer OS distribution 
 ```
-ansible all -i inventories/setup.yml -m ping
+ansible all -i inventories/setup.yml -m setup -a "filter=ansible_distribution*"
 ```
 Désinstaller apache
 ```
